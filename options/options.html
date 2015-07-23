@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			div:nth-child(2) {
+				margin-top: 20px;
+			}
+			div > span:nth-child(4) {
+				margin-left: 20px;
+			}
+
+			@-webkit-keyframes show {
+				from {
+					left: -45px;
+				}
+				to {
+					left: 5px;
+				}
+			}
+			#save {
+				position: relative;
+			}
+			.animation {
+				-webkit-animation-name: show;
+				-webkit-animation-duration: 1.5s;
+				-webkit-animation-iteration-count: 2;
+				-webkit-animation-direction: alternate;
+			}
+			#message {
+				position: relative;
+				left: -45px;
+				z-index: -1;
+				color: red;
+				font-weight: bold;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<span>Interval: </span>
+			<select id="reminder-list">
+				<option value="1">1</option>
+				<option value="5">5</option>
+				<option value="10">10</option>
+				<option value="20">20</option>
+				<option value="30">30</option>
+				<option value="40">40</option>
+				<option value="50">50</option>
+				<option value="60">60</option>
+			</select>
+			<span>Minute</span>
+			<span>
+				<input type="checkbox" id="hour-reminder">
+				<label for="hour-reminder">Each hour</label>
+			</span>
+		</div>
+		<div>
+			<button type="button" id="save">Save</button>
+			<span id="message">Saved!</span>
+		</div>
+		<script src="options.js"></script>
+	</body>
+</html>

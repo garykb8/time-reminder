@@ -1,0 +1,27 @@
+{
+  "manifest_version": 2,
+  "name": "Time Reminder",
+  "description": "Time reminder each hour",
+  "version": "1.0.3",
+  "icons": {
+    // "48": ""
+  },
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "browser_action": {
+    // "default_icon": "",
+    "default_popup": "browser-action/popup.html",
+    "default_title": "Click here!"
+  },
+  "options_ui": {
+    "page": "options/options.html",
+    "chrome_style": true
+  },
+  "permissions": [
+    "notifications",
+    "alarms",
+    "storage"
+  ]
+}
