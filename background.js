@@ -21,7 +21,7 @@ function init(details) {
 
 function getNotificationId(id) {
     notificationId = id;
-    console.log(notificationId);
+    // console.log(notificationId);
 }
 
 function getNotificationOpt(message) {
@@ -29,7 +29,8 @@ function getNotificationOpt(message) {
         type: 'basic',
         title: 'Time Reminder',
         message: message,
-        iconUrl: 'icons/icon.png'
+        iconUrl: 'icons/icon.png',
+        isClickable: true
     };
 
     return opt
@@ -48,9 +49,9 @@ function setTimeReminder() {
     opt = getNotificationOpt(hour + ':' + minute + ':' + secound)
     // console.log(notificationId);
     if (notificationId.length != 0) {
-        // chrome.notifications.update(notificationId);
-        chrome.notifications.clear(notificationId);
-        // chrome.notifications.create(notificationId, opt);
+        // chrome.notifications.update(notificationId, opt);
+        // chrome.notifications.clear(notificationId);
+        chrome.notifications.create(notificationId, opt);
     } else {
         chrome.notifications.create(opt, getNotificationId);
     }
@@ -75,19 +76,16 @@ function getNextHourTime(storageValue) {
 
 chrome.runtime.onInstalled.addListener(init);
 
-chrome.notifications.onClosed.addListener(function(notificationId, byUser) {
-	// console.log('tttt');
-	if (!byUser) {
-		chrome.notifications.create(notificationId, opt);
-	}
-})
+chrome.notifications.onPermissionLevelChanged.addListener(function(level) {
+    console.log(level);
+});
 
 chrome.alarms.create('hour-reminder', {
     delayInMinutes: 1
 });
 
 chrome.alarms.onAlarm.addListener(function(alarm) {
-    console.log('alarm');
+    // console.log('alarm');
     if (alarm.name === 'hour-reminder') {
         console.log('alarm');
         setTimeReminder();
@@ -103,4 +101,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
             when: getNextHourTime(items)
         });
     });
+});
+
+chrome.notifications.onClicked.addListener(function(id) {
+    chrome.notifications.clear(id);
 });
